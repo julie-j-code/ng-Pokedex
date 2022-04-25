@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListPokemonComponent } from './list-pokemon/list-pokemon.component';
 import { DetailPokemonComponent } from './detail-pokemon/detail-pokemon.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DetailPokemonComponent } from './detail-pokemon/detail-pokemon.componen
     DetailPokemonComponent,
     BorderCardDirective,
     PokemonTypeColorPipe,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
