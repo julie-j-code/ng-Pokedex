@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { POKEMONS } from './mock-pokemon-list';
 import { Pokemon } from './pokemon';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({providedIn: 'root'})
+// Suppression de l'injecteur racine qui implique de fournir le service depuis le provider du module
+@Injectable()
 export class PokemonService {
 
   getPokemonList():Pokemon[]{
