@@ -6,6 +6,8 @@ import { PokemonService } from '../pokemon.service';
 @Component({
   selector: 'app-pokemon-form',
   templateUrl: './pokemon-form.component.html',
+  styleUrls: ['./pokemon-form.component.css']
+
 })
 export class PokemonFormComponent implements OnInit {
   @Input() pokemon: Pokemon;
@@ -17,6 +19,7 @@ export class PokemonFormComponent implements OnInit {
     this.types=this.service.getPokemonTypeList()
   }
 
+  // le type actif
   hasType(type:string):boolean{
     return this.pokemon.types.includes(type)
   }
@@ -33,8 +36,21 @@ export class PokemonFormComponent implements OnInit {
     }
   }
 
+  isTypesValid(type: string): boolean {
+    if(this.pokemon.types.length == 1 && this.hasType(type)) {
+      return false;
+    }
+
+    if(this.pokemon.types.length > 2 && !this.hasType(type)) {
+      return false;
+    }
+
+    return true;
+  }
+
   onSubmit(){
     console.log('Submit form !')
+    this.router.navigate(['/pokemon', this.pokemon.id])
 
   }
 
