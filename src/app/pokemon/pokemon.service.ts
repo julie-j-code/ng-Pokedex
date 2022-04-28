@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError,  tap } from 'rxjs/operators';
+import { Observable, catchError,  tap, of  } from 'rxjs';
 import { Pokemon } from './pokemon';
 
 @Injectable()
