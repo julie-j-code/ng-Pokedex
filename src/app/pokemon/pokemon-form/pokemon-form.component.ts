@@ -49,8 +49,17 @@ export class PokemonFormComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('Submit form !' )
-    this.router.navigate(['/pokemon', this.pokemon.id])
+    this.service.updatePokemon(this.pokemon).subscribe(
+      // etant donné que le truc pour simuler l'appel à l'API renvoie null lors du put, on ne peut va pas gérer le cas d'erreurs
+      // sauf que normalement, faudrait :
+      // (pokemon)=>{
+      //   if (pokemon) {          
+      //     this.router.navigate(['/pokemon', this.pokemon.id])
+      //   }
+      // }
+
+      ()=>this.router.navigate(['/pokemon', this.pokemon.id])
+    )
 
   }
 

@@ -33,6 +33,8 @@ export class PokemonService {
     );
   }
 
+  // dans une API normal, on aurait opté pour
+  // updatePokemon(pokemon: Pokemon): Observable<Pokemon|undefinedl> {
   updatePokemon(pokemon: Pokemon): Observable<null> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -40,6 +42,7 @@ export class PokemonService {
 
     return this.http.put('api/pokemons', pokemon, httpOptions).pipe(
       tap((response) => this.log(response)),
+      // catchError((error) => this.handleError(error, undefined))
       catchError((error) => this.handleError(error, null))
     );
   }
