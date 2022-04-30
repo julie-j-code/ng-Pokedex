@@ -22,8 +22,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     PokemonModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,  { dataEncapsulation: false }),
-    AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

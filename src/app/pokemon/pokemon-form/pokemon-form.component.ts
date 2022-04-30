@@ -7,32 +7,34 @@ import { PokemonService } from '../pokemon.service';
   selector: 'app-pokemon-form',
   templateUrl: './pokemon-form.component.html',
   styleUrls: ['./pokemon-form.component.css']
-
 })
 export class PokemonFormComponent implements OnInit {
   @Input() pokemon: Pokemon;
-  types: string [];
+  types: string[];
+  isAddForm: boolean;
 
-  constructor(private service:PokemonService, private router:Router) { }
+  constructor(
+    private pokemonService: PokemonService,
+    private router: Router
+  ) { }
 
-  ngOnInit(){
-    this.types=this.service.getPokemonTypeList()
+  ngOnInit() {
+    this.types = this.pokemonService.getPokemonTypeList();
+    this.isAddForm = this.router.url.includes('add');
   }
 
-  // le type actif
-  hasType(type:string):boolean{
-    return this.pokemon.types.includes(type)
+  hasType(type: string): boolean {
+    return this.pokemon.types.includes(type);
   }
 
-  selectType($event:Event, type:string){
-    const isChecked=($event.target as HTMLInputElement).checked;
+  selectType($event: Event, type: string) {
+    const isChecked: boolean = ($event.target as HTMLInputElement).checked;
 
-    if(isChecked){
-      this.pokemon.types.push(type)
-    }else{
+    if(isChecked) {
+      this.pokemon.types.push(type);
+    } else {
       const index = this.pokemon.types.indexOf(type);
-      this.pokemon.types.splice(index, 1)
-      this.router.navigate(['/pokemon',this.pokemon.id])
+      this.pokemon.types.splice(index, 1);
     }
   }
 
@@ -48,19 +50,14 @@ export class PokemonFormComponent implements OnInit {
     return true;
   }
 
-  onSubmit(){
-    this.service.updatePokemon(this.pokemon).subscribe(
-      // etant donné que le truc pour simuler l'appel à l'API renvoie null lors du put, on ne peut va pas gérer le cas d'erreurs
-      // sauf que normalement, faudrait :
-      // (pokemon)=>{
-      //   if (pokemon) {          
-      //     this.router.navigate(['/pokemon', this.pokemon.id])
-      //   }
-      // }
-
-      ()=>this.router.navigate(['/pokemon', this.pokemon.id])
-    )
-
+  onSubmit() {
+    if(this.isAddForm) {
+      this.pokemonService.addPokemon(this.pokemon)
+        .subscribe((pokemon: Pokemon) => this.router.navigate(['/pokemon', pokemon.id]));
+    } else {
+      this.pokemonService.updatePokemon(this.pokemon)
+        .subscribe(() => this.router.navigate(['/pokemon', this.pokemon.id]));
+    }
   }
 
 }
